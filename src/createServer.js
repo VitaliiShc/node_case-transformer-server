@@ -11,7 +11,7 @@ function createServer() {
       res.statusMessage = 'Not Found';
       res.end(badRequestHandler('notFound'));
 
-      return badRequestHandler('notFound');
+      return;
     }
 
     res.setHeader('Content-Type', 'application/json');
@@ -21,7 +21,7 @@ function createServer() {
       res.statusMessage = 'Bad request';
       res.end(badRequestHandler('emptyTextToConvert', 'emptyQueryParam'));
 
-      return badRequestHandler('emptyTextToConvert', 'emptyQueryParam');
+      return;
     }
 
     const [text, searchParams] = req.url.slice(1).split('?');
@@ -33,7 +33,7 @@ function createServer() {
       res.statusMessage = 'Bad request';
       res.end(badRequestHandler('emptyQueryParam'));
 
-      return badRequestHandler('emptyQueryParam');
+      return;
     }
 
     const isValidText = text.length > 0;
@@ -45,7 +45,7 @@ function createServer() {
       res.statusMessage = 'Bad request';
       res.end(badRequestHandler('emptyTextToConvert', 'unsupportedCase'));
 
-      return badRequestHandler('emptyTextToConvert', 'unsupportedCase');
+      return;
     }
 
     if (!isValidText) {
@@ -53,7 +53,7 @@ function createServer() {
       res.statusMessage = 'Bad request';
       res.end(badRequestHandler('emptyTextToConvert'));
 
-      return badRequestHandler('emptyTextToConvert');
+      return;
     }
 
     const originalText = text;
@@ -63,7 +63,7 @@ function createServer() {
       res.statusMessage = 'Bad request';
       res.end(badRequestHandler('unsupportedCase'));
 
-      return badRequestHandler('unsupportedCase');
+      return;
     }
 
     const targetCase = toCase;
@@ -81,13 +81,6 @@ function createServer() {
         convertedText,
       }),
     );
-
-    return JSON.stringify({
-      originalCase,
-      targetCase,
-      originalText,
-      convertedText,
-    });
   });
 
   return server;
